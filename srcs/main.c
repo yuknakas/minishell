@@ -6,13 +6,13 @@
 /*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 11:56:56 by raosmona          #+#    #+#             */
-/*   Updated: 2025/07/01 11:57:38 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/07/01 15:36:00 by raosmona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	return (0);
 }
