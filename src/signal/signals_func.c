@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   signals_func.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/01 11:56:56 by raosmona          #+#    #+#             */
-/*   Updated: 2025/07/01 15:36:00 by raosmona         ###   ########.fr       */
+/*   Created: 2025/07/04 18:48:58 by raosmona          #+#    #+#             */
+/*   Updated: 2025/07/04 19:54:15 by raosmona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	sigint_handler(int signum)
 {
-	return (0);
+	(void)signum;
+	g_sig = SIGINT;
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("0", 0);
+	rl_redisplay();
+}
+
+void	set_signal_handlers(void)
+{
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
