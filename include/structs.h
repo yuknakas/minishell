@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 15:59:32 by raosmona          #+#    #+#             */
-/*   Updated: 2025/07/08 16:57:17 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:33:19 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,10 @@ typedef struct s_envp
 
 typedef struct s_token
 {
-	char					*lex;
+	char					*line;
 	t_token_type			type;
 	struct s_token			*next;
+	int						is_expanded;
 }							t_token;
 
 typedef struct s_cmd
