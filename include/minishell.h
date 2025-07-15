@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:51:22 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/07/08 16:52:01 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:01:25 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <limits.h>
 
 // File & Directory
 # include <dirent.h>
@@ -41,6 +42,10 @@
 # include <readline/readline.h>
 # include <term.h>
 # include <termios.h>
+
+// Pipe
+# include <sys/wait.h>
+# include <errno.h>
 
 extern volatile sig_atomic_t	g_sig;
 
@@ -60,5 +65,17 @@ typedef struct s_minishell
 }								t_minishell;
 
 void							set_signal_handlers(void);
+
+// Executing
+int			execute(char *cmd);
+int			find_path(char *command);
+char		**_set_cmd(char *command);
+
+// Erorrs
+int		pex_putstr_int(char *str);
+int		pex_puterror(char *str);
+int		pex_file_error(char *file_name);
+int		pex_cmd_error(char *cmd_name);
+void	_freearr(char **arr);
 
 #endif

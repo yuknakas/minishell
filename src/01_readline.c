@@ -1,0 +1,57 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   01_readline.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/15 10:26:41 by yuknakas          #+#    #+#             */
+/*   Updated: 2025/07/15 13:51:36 by yuknakas         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/minishell.h"
+
+int	interpert(char *line);
+
+int	main(void)
+{
+	char	*line;
+
+	rl_outstream = stderr;
+	while (1)
+	{
+		line = readline("minishell$ ");
+		if (line == NULL)
+			break ;
+		if (*line)
+			add_history(line);
+		interpert(line);
+		free(line);
+	}
+	exit(0);
+}
+
+int	interpert(char *line)
+{
+	int	ret_val;
+	pid_t	id;
+
+	id = fork();
+	if (id < 0)
+	{
+		printf("error fork");
+		return (-1);
+	}
+	if (id == 0)
+	{
+		ret_val = execute(line);
+		exit(ret_val);
+	}
+	if (id != 0)
+	{
+		waitpid(id, &ret_val, 0);
+		return (WEXITSTATUS(ret_val));
+	}
+	return (0);
+}
