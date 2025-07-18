@@ -6,7 +6,7 @@
 /*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:51:22 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/07/18 10:07:33 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/07/18 16:54:46 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ t_token		*new_token(char *token_line);
 int			append_token(t_token **token_list, t_token *new_token);
 t_token		*ft_last_token(t_token *token_list);
 t_token		*make_token_list(char *line);
+
+// Expand
+char		*append_char(char *src, char c);
 
 // Executing
 int			execute(char *cmd);

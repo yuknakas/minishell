@@ -6,7 +6,7 @@
 /*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 15:59:32 by raosmona          #+#    #+#             */
-/*   Updated: 2025/07/15 15:33:19 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/07/18 16:27:47 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,20 @@ typedef struct s_redir		t_redir;
 typedef struct s_cmd		t_cmd;
 typedef struct s_minishell	t_minishell;
 
+typedef struct s_token
+{
+	char					*line;
+	t_token_type			type;
+	struct s_token			*next;
+	int						is_expanded;
+}							t_token;
+
+typedef struct s_node
+{
+	t_token					*arg_list;
+	t_node					*next;
+}							t_node;
+
 typedef struct s_redir
 {
 	t_redir_type			kind;
@@ -55,14 +69,6 @@ typedef struct s_envp
 	char					*value;
 	t_envp					*next;
 }							t_envp;
-
-typedef struct s_token
-{
-	char					*line;
-	t_token_type			type;
-	struct s_token			*next;
-	int						is_expanded;
-}							t_token;
 
 typedef struct s_cmd
 {
