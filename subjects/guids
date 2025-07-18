@@ -2,4 +2,6 @@ https://usatie.notion.site/minishell-29921d3ea13447ad897349acd5733d5e
 
 https://github.com/mcombeau/minishell
 
+https://github.com/usatie/minishell_v2/tree/livecoding
+
 % ccw src/01_readline.c src/02_execute.c src/10_errors.c -L./libft -lft -lreadline  
