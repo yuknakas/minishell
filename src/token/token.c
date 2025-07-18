@@ -6,7 +6,7 @@
 /*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:29:15 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/07/15 15:40:09 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/07/18 10:10:40 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,33 @@ t_token	*new_token(char *token_line)
 		return (NULL);
 	}
 	new_token->line = token_line;
+	new_token->next = NULL;
+	new_token->is_expanded = 0;
+	new_token->type = TOKEN_WORD;
 	return (new_token);
 }
 
-void	append_token(t_token *last_token, t_token *new_token)
+int	append_token(t_token **token_list, t_token *new_token)
 {
-	if (last_token == NULL || new_token == NULL)
-		return ;
+	t_token	*last_token;
+
+	if (*token_list == NULL)
+	{
+		*token_list = new_token;
+		return (0);
+	}
+	last_token = ft_last_token(*token_list);
+	if (last_token == NULL)
+		return (1);
 	last_token->next = new_token;
-	return ;
+	return (0);
 }
 
-
+t_token	*ft_last_token(t_token *token_list)
+{
+	if (token_list == NULL)
+		return (NULL);
+	while (token_list->next != NULL)
+		token_list = token_list->next;
+	return (token_list);
+}

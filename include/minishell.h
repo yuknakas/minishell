@@ -6,7 +6,7 @@
 /*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:51:22 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/07/15 15:31:49 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/07/18 10:07:33 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,16 @@ typedef struct s_minishell
 }								t_minishell;
 
 void							set_signal_handlers(void);
+
+// Tokenize
+int			is_blank(char c);
+int			is_word_start(char c);
+int			take_quote(char *line, int *i);
+char		*ft_strndup(const char *src, size_t n);
+t_token		*new_token(char *token_line);
+int			append_token(t_token **token_list, t_token *new_token);
+t_token		*ft_last_token(t_token *token_list);
+t_token		*make_token_list(char *line);
 
 // Executing
 int			execute(char *cmd);
