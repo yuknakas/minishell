@@ -6,11 +6,11 @@
 /*   By: razakosmonaliev <razakosmonaliev@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 10:26:41 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/07/26 16:02:55 by razakosmona      ###   ########.fr       */
+/*   Updated: 2025/07/26 22:37:51 by razakosmona      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 int interpret(char *line, char **envp);
 

@@ -6,7 +6,7 @@
 /*   By: razakosmonaliev <razakosmonaliev@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 11:56:56 by raosmona          #+#    #+#             */
-/*   Updated: 2025/07/26 16:03:00 by razakosmona      ###   ########.fr       */
+/*   Updated: 2025/07/26 21:19:22 by razakosmona      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
+	set_signal_handlers();
 	readline_loop(envp);
 	return (0);
 }
