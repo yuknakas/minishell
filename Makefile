@@ -6,7 +6,7 @@
 # The 'mac' target adds AddressSanitizer, debug info, and corrects readline paths for Homebrew.
 # ---------------------------------------------------------------
 NAME        = minishell
-CC          = clang
+CC          = cc
 CFLAGS      = -Wall -Wextra -Werror
 
 SRC_DIR     = src
