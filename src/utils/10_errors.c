@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   10_errors.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: razakosmonaliev <razakosmonaliev@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:42:30 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/07/15 12:12:05 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/07/26 23:08:19 by razakosmona      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 int		pex_putstr_int(char *str);
 int		pex_puterror(char *str);

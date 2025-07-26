@@ -44,9 +44,9 @@ static char	*_pathway(char *command)
 {
 	char	*env_path;
 	char	**path_comp;
-	//int		i;
 
-	//i = 0;
+	// int		i;
+	// i = 0;
 	env_path = getenv("PATH");
 	path_comp = ft_split(env_path, ':');
 	if (path_comp == NULL)

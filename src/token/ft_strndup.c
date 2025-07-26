@@ -30,8 +30,8 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 
 char	*ft_strndup(const char *src, size_t n)
 {
-	//int		length;
-	char	*dest;
+	// int		length;
+	char *dest;
 
 	dest = malloc(n + 1);
 	if (dest == NULL)

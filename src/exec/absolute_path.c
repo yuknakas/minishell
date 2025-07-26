@@ -46,9 +46,9 @@ static int	absolute_path(char *cmd, char **envp)
 
 char	**_set_cmd(char *command)
 {
-	//int		i;
 	char	**cmd_arg;
 
+	// int		i;
 	if (command == NULL || *command == '\0')
 	{
 		pex_putstr_int("bash: permission denied\n");
@@ -60,6 +60,6 @@ char	**_set_cmd(char *command)
 		pex_putstr_int("Error: memory allocation failed\n");
 		return (NULL);
 	}
-	//i = 0;
+	// i = 0;
 	return (cmd_arg);
 }

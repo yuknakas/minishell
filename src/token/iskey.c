@@ -24,15 +24,14 @@ int	is_word_start(char c)
 	return (c && !is_blank(c));
 }
 
-
 int	take_quote(char *line, int *i)
 {
-	int	j;
+	int		j;
 	char	quote;
 
 	j = 1;
 	quote = *line;
-	while(line[j] != quote)
+	while (line[j] != quote)
 	{
 		if (line[j] == '\0')
 			return (_unclosed_qt(quote));

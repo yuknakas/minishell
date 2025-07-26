@@ -21,11 +21,11 @@
 
 // Standard C libraries
 # include <errno.h>
+# include <limits.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include <limits.h>
 
 // File & Directory
 # include <dirent.h>
@@ -44,8 +44,8 @@
 # include <termios.h>
 
 // Pipe
-# include <sys/wait.h>
 # include <errno.h>
+# include <sys/wait.h>
 
 extern volatile sig_atomic_t	g_sig;
 
@@ -65,32 +65,33 @@ typedef struct s_minishell
 }								t_minishell;
 
 void							set_signal_handlers(void);
-void	free_envp(t_envp *env);
-t_envp	*copy_envp(char **envp);
-void	print_envp(t_envp *env);
+void							free_envp(t_envp *env);
+t_envp							*copy_envp(char **envp);
+void							print_envp(t_envp *env);
 
 // Tokenize
-int			is_blank(char c);
-int			is_word_start(char c);
-int			take_quote(char *line, int *i);
-char		*ft_strndup(const char *src, size_t n);
-t_token		*new_token(char *token_line);
-int			append_token(t_token **token_list, t_token *new_token);
-t_token		*ft_last_token(t_token *token_list);
-t_token		*make_token_list(char *line);
+int								is_blank(char c);
+int								is_word_start(char c);
+int								take_quote(char *line, int *i);
+char							*ft_strndup(const char *src, size_t n);
+t_token							*new_token(char *token_line);
+int								append_token(t_token **token_list,
+									t_token *new_token);
+t_token							*ft_last_token(t_token *token_list);
+t_token							*make_token_list(char *line);
 
 // Executing
-void readline_loop(char **envp);
-int interpret(char *line, char **envp);
-int execute(char *cmd, char **envp);
-int find_path(char *command, char **envp);
-char		**_set_cmd(char *command);
+void							readline_loop(char **envp);
+int								interpret(char *line, char **envp);
+int								execute(char *cmd, char **envp);
+int								find_path(char *command, char **envp);
+char							**_set_cmd(char *command);
 
 // Erorrs
-int		pex_putstr_int(char *str);
-int		pex_puterror(char *str);
-int		pex_file_error(char *file_name);
-int		pex_cmd_error(char *cmd_name);
-void	_freearr(char **arr);
+int								pex_putstr_int(char *str);
+int								pex_puterror(char *str);
+int								pex_file_error(char *file_name);
+int								pex_cmd_error(char *cmd_name);
+void							_freearr(char **arr);
 
 #endif

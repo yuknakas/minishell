@@ -6,13 +6,12 @@
 /*   By: razakosmonaliev <razakosmonaliev@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 11:56:56 by raosmona          #+#    #+#             */
-/*   Updated: 2025/07/26 21:19:22 by razakosmona      ###   ########.fr       */
+/*   Updated: 2025/07/28 09:24:26 by razakosmona      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-// TODO: init_shell(), shell_loop()
+#include <sys/socket.h>
 
 volatile sig_atomic_t	g_sig = 0;
 
@@ -29,19 +28,28 @@ void	shell_loop(t_minishell *sh)
 	}
 }
 
-void	init_shell(char **envp)
+t_minishell	init_shell(char **envp)
 {
 	t_minishell	sh;
-	
-	sh.env = copy_envp(envp);
-	print_envp(sh.env);
+	t_envp		*env;
+
+	env = copy_envp(envp);
+	sh.env = env;
+	return (sh);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
+	t_minishell	shell;
+
 	(void)argc;
 	(void)argv;
 	set_signal_handlers();
+<<<<<<< HEAD
+=======
+	shell = init_shell(envp);
+	//print_envp(shell.env);
+>>>>>>> 19318f3 (little changes)
 	readline_loop(envp);
 	return (0);
 }

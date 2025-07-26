@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-int	word_token(char **line, t_token **token_list);
+int		word_token(char **line, t_token **token_list);
 
 t_token	*make_token_list(char *line)
 {
