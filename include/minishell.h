@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: razakosmonaliev <razakosmonaliev@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:51:22 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/07/18 10:07:33 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/07/26 16:03:05 by razakosmona      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@ typedef struct s_minishell
 }								t_minishell;
 
 void							set_signal_handlers(void);
+void	free_envp(t_envp *env);
+t_envp	*copy_envp(char **envp);
+void	print_envp(t_envp *env);
 
 // Tokenize
 int			is_blank(char c);
@@ -77,8 +80,10 @@ t_token		*ft_last_token(t_token *token_list);
 t_token		*make_token_list(char *line);
 
 // Executing
-int			execute(char *cmd);
-int			find_path(char *command);
+void readline_loop(char **envp);
+int interpret(char *line, char **envp);
+int execute(char *cmd, char **envp);
+int find_path(char *command, char **envp);
 char		**_set_cmd(char *command);
 
 // Erorrs

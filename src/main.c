@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: razakosmonaliev <razakosmonaliev@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 11:56:56 by raosmona          #+#    #+#             */
-/*   Updated: 2025/07/08 16:54:12 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/07/26 16:03:00 by razakosmona      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,18 @@ void	shell_loop(t_minishell *sh)
 	}
 }
 
+void	init_shell(char **envp)
+{
+	t_minishell	sh;
+	
+	sh.env = copy_envp(envp);
+	print_envp(sh.env);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
-	int	i;
-
-	i = 0;
 	(void)argc;
 	(void)argv;
-	while (envp[i] != NULL)
-	{
-		printf("%s\n", envp[i]);
-		i++;
-	}
+	readline_loop(envp);
 	return (0);
 }

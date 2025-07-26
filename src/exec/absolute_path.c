@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   absolute_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: razakosmonaliev <razakosmonaliev@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:51:45 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/07/15 14:03:48 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/07/26 16:03:12 by razakosmona      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int			execute(char *cmd);
-static int	absolute_path(char *cmd);
+int			execute(char *cmd, char **envp);
+static int	absolute_path(char *cmd, char **envp);
 char		**_set_cmd(char *command);
 
-int	execute(char *cmd)
+int	execute(char *cmd, char **envp)
 {
 	if (cmd == NULL || *cmd == '\0')
 	{
@@ -24,15 +24,14 @@ int	execute(char *cmd)
 		return (0);
 	}
 	if (*cmd == '/')
-		return (absolute_path(cmd));
-	return (find_path(cmd));
+		return (absolute_path(cmd, envp));
+	return (find_path(cmd, envp));
 }
 
-static int	absolute_path(char *cmd)
+static int	absolute_path(char *cmd, char **envp)
 {
 	char	**cmd_arr;
 	int		sucess;
-	extern char	**__environ;
 
 	cmd_arr = _set_cmd(cmd);
 	if (access(cmd_arr[0], F_OK | X_OK))
@@ -40,14 +39,14 @@ static int	absolute_path(char *cmd)
 		pex_cmd_error(cmd);
 		return (127);
 	}
-	sucess = execve(cmd_arr[0], cmd_arr, __environ);
+	sucess = execve(cmd_arr[0], cmd_arr, envp);
 	_freearr(cmd_arr);
 	return (sucess);
 }
 
 char	**_set_cmd(char *command)
 {
-	int		i;
+	//int		i;
 	char	**cmd_arg;
 
 	if (command == NULL || *command == '\0')
@@ -61,6 +60,6 @@ char	**_set_cmd(char *command)
 		pex_putstr_int("Error: memory allocation failed\n");
 		return (NULL);
 	}
-	i = 0;
+	//i = 0;
 	return (cmd_arg);
 }

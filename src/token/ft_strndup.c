@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raosmona <razakosmonaliev@gmail.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 09:56:42 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/07/18 09:58:23 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/07/26 15:22:45 by raosmona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 
 char	*ft_strndup(const char *src, size_t n)
 {
-	int		length;
+	//int		length;
 	char	*dest;
 
 	dest = malloc(n + 1);

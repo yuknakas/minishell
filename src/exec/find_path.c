@@ -3,25 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: razakosmonaliev <razakosmonaliev@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:49:04 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/07/15 14:02:07 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/07/26 15:58:09 by razakosmona      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int			find_path(char *command);
+int			find_path(char *command, char **envp);
 static char	*_pathway(char *command);
 static char	*_check_path(char **path_comp, char *command);
 
-int	find_path(char *command)
+int	find_path(char *command, char **envp)
 {
 	char	**cmd;
 	char	*path;
 	int		sucess;
-	extern char	**__environ;
 
 	cmd = _set_cmd(command);
 	if (cmd == NULL)
@@ -33,7 +32,7 @@ int	find_path(char *command)
 		_freearr(cmd);
 		return (127);
 	}
-	sucess = execve(path, cmd, __environ);
+	sucess = execve(path, cmd, envp);
 	free(path);
 	_freearr(cmd);
 	if (sucess == -1)
@@ -45,9 +44,9 @@ static char	*_pathway(char *command)
 {
 	char	*env_path;
 	char	**path_comp;
-	int		i;
+	//int		i;
 
-	i = 0;
+	//i = 0;
 	env_path = getenv("PATH");
 	path_comp = ft_split(env_path, ':');
 	if (path_comp == NULL)
