@@ -6,7 +6,7 @@
 /*   By: razakosmonaliev <razakosmonaliev@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:51:22 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/07/26 16:03:05 by razakosmona      ###   ########.fr       */
+/*   Updated: 2025/07/28 20:36:23 by razakosmona      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void							set_signal_handlers(void);
 void							free_envp(t_envp *env);
 t_envp							*copy_envp(char **envp);
 void							print_envp(t_envp *env);
+int								env_list_size(t_envp *env);
+char							**env_list_to(t_envp *env);
 
 // Tokenize
 int								is_blank(char c);
@@ -81,10 +83,10 @@ t_token							*ft_last_token(t_token *token_list);
 t_token							*make_token_list(char *line);
 
 // Executing
-void							readline_loop(char **envp);
-int								interpret(char *line, char **envp);
-int								execute(char *cmd, char **envp);
-int								find_path(char *command, char **envp);
+void							readline_loop(t_minishell *sh);
+int								interpret(char *line, t_minishell *sh);
+int								execute(char *cmd, t_minishell *sh);
+int								find_path(char *command, t_minishell *sh);
 char							**_set_cmd(char *command);
 
 // Erorrs

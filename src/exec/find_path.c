@@ -6,21 +6,22 @@
 /*   By: razakosmonaliev <razakosmonaliev@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:49:04 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/07/26 15:58:09 by razakosmona      ###   ########.fr       */
+/*   Updated: 2025/07/28 20:38:52 by razakosmona      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int			find_path(char *command, char **envp);
+int			find_path(char *command, t_minishell *sh);
 static char	*_pathway(char *command);
 static char	*_check_path(char **path_comp, char *command);
 
-int	find_path(char *command, char **envp)
+int	find_path(char *command, t_minishell *sh)
 {
 	char	**cmd;
 	char	*path;
 	int		sucess;
+	char **envp = env_list_to(sh->env);
 
 	cmd = _set_cmd(command);
 	if (cmd == NULL)

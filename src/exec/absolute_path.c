@@ -6,17 +6,17 @@
 /*   By: razakosmonaliev <razakosmonaliev@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:51:45 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/07/26 16:03:12 by razakosmona      ###   ########.fr       */
+/*   Updated: 2025/07/28 20:51:24 by razakosmona      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int			execute(char *cmd, char **envp);
-static int	absolute_path(char *cmd, char **envp);
+int			execute(char *cmd, t_minishell *sh);
+static int	absolute_path(char *cmd, t_minishell *sh);
 char		**_set_cmd(char *command);
 
-int	execute(char *cmd, char **envp)
+int	execute(char *cmd, t_minishell *sh)
 {
 	if (cmd == NULL || *cmd == '\0')
 	{
@@ -24,14 +24,15 @@ int	execute(char *cmd, char **envp)
 		return (0);
 	}
 	if (*cmd == '/')
-		return (absolute_path(cmd, envp));
-	return (find_path(cmd, envp));
+		return (absolute_path(cmd, sh));
+	return (find_path(cmd, sh));
 }
 
-static int	absolute_path(char *cmd, char **envp)
+static int	absolute_path(char *cmd, t_minishell *sh)
 {
 	char	**cmd_arr;
 	int		sucess;
+	char **envp = env_list_to(sh->env);
 
 	cmd_arr = _set_cmd(cmd);
 	if (access(cmd_arr[0], F_OK | X_OK))

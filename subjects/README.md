@@ -29,8 +29,6 @@ min/
 │   │   ├── tokenize.c
 │   │   ├── ft_strndup.c
 │   │   ├── iskey.c
-│   │   ├── main.c           # (Possibly tokenization tests)
-│   │   └── a.out            # (Temporary binary)
 │   ├── signal/              # Signal handling
 │   │   └── signals_func.c
 │   ├── pipex/               # (Empty) Placeholder for pipes
