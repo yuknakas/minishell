@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: razakosmonaliev <razakosmonaliev@studen    +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:51:22 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/07/28 20:36:23 by razakosmona      ###   ########.fr       */
+/*   Updated: 2025/07/29 10:00:40 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,9 @@ int								append_token(t_token **token_list,
 									t_token *new_token);
 t_token							*ft_last_token(t_token *token_list);
 t_token							*make_token_list(char *line);
+
+// Expand
+char		*append_char(char *src, char c);
 
 // Executing
 void							readline_loop(t_minishell *sh);
