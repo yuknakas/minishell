@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   copy_env_func.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: razakosmonaliev <razakosmonaliev@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 15:16:35 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/04 14:08:22 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/08/16 15:27:16 by razakosmona      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	free_env_array_on_fail(char **arr, int count)
+{
+	while (count > 0)
+		free(arr[--count]);
+	free(arr);
+}
 
 void	free_envp(t_envp *env)
 {
@@ -30,7 +37,8 @@ void	print_envp(t_envp *env)
 {
 	while (env)
 	{
-		printf("%s=%s\n", env->key, env->value);
+		if (env->value != NULL)
+			printf("%s=%s\n", env->key, env->value);
 		env = env->next;
 	}
 }

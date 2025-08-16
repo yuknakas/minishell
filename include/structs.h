@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 15:59:32 by raosmona          #+#    #+#             */
-/*   Updated: 2025/07/15 15:33:19 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/08/16 18:02:29 by raosmona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,19 @@ typedef enum e_redir_type
 	REDIR_HEREDOC
 }							t_redir_type;
 
+typedef enum e_operator
+{
+	OP_NONE,
+	OP_DGREAT,
+	OP_DLESS,
+	OP_AND,
+	OP_OR,
+	OP_GREAT,
+	OP_LESS,
+	OP_PIPE,
+	OP_SEMI
+}							t_operator;
+
 typedef struct s_envp		t_envp;
 typedef struct s_token		t_token;
 typedef struct s_redir		t_redir;
@@ -46,6 +59,7 @@ typedef struct s_redir
 {
 	t_redir_type			kind;
 	char					*file;
+	int						no_expand;
 	struct s_redir			*next;
 }							t_redir;
 
@@ -71,5 +85,19 @@ typedef struct s_cmd
 	int						builtin;
 	t_cmd					*next;
 }							t_cmd;
+
+typedef struct s_split_state
+{
+	int						i;
+	int						start;
+	int						in_single;
+	int						in_double;
+}							t_split_state;
+
+typedef struct s_exp_state
+{
+	int						in_squote;
+	int						in_dquote;
+}							t_exp_state;
 
 #endif

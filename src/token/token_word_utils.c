@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   iskey.c                                            :+:      :+:    :+:   */
+/*   token_word_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/15 15:40:36 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/07/18 10:26:39 by yuknakas         ###   ########.fr       */
+/*   Created: 2025/08/16 18:04:12 by raosmona          #+#    #+#             */
+/*   Updated: 2025/08/16 18:04:13 by raosmona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	_unclosed_qt(char qt_type);
 
 int	is_blank(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\n');
 }
 
-int	is_word_start(char c)
+static int	unclosed_quote_error(char qt_type)
 {
-	return (c && !is_blank(c));
+	if (qt_type == '\'')
+		ft_putstr_fd("minishell: unclosed single quote\n", 2);
+	else if (qt_type == '"')
+		ft_putstr_fd("minishell: unclosed double quote\n", 2);
+	return (1);
 }
 
 int	take_quote(char *line, int *i)
@@ -31,21 +33,17 @@ int	take_quote(char *line, int *i)
 
 	j = 1;
 	quote = *line;
-	while (line[j] != quote)
+	while (line[j])
 	{
-		if (line[j] == '\0')
-			return (_unclosed_qt(quote));
-		j++;
+		if (line[j] == '\\' && quote == '"' && line[j + 1] != '\0')
+			j += 2;
+		else if (line[j] == quote)
+			break ;
+		else
+			j++;
 	}
+	if (line[j] == '\0')
+		return (unclosed_quote_error(quote));
 	*i += j + 1;
 	return (0);
-}
-
-int	_unclosed_qt(char qt_type)
-{
-	if (qt_type == '\'')
-		printf("> unclosed single quote: error, process terminated\n");
-	else if (qt_type == '"')
-		printf("> unclosed double quote: error, process terminated\n");
-	return (1);
 }

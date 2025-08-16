@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: razakosmonaliev <razakosmonaliev@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 11:56:56 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/04 14:18:33 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/08/14 14:42:24 by razakosmona      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,6 @@
 
 volatile sig_atomic_t	g_sig = 0;
 
-// void	shell_loop(t_minishell *sh)
-// {
-// 	char	*line;
-
-// 	(void)sh;
-// 	while (1)
-// 	{
-// 		line = readline("minishell$ ");
-// 		printf("You typed: %s\n", line);
-// 		free(line);
-// 	}
-// }
-
 t_minishell	init_shell(char **envp)
 {
 	t_minishell	sh;
@@ -35,6 +22,9 @@ t_minishell	init_shell(char **envp)
 
 	env = copy_envp(envp);
 	sh.env = env;
+	sh.last_status = 0;
+	sh.tokens = NULL;
+	sh.cmds = NULL;
 	return (sh);
 }
 
@@ -42,11 +32,13 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	shell;
 
-	(void)argc;
-	(void)argv;
+	if (argc != 1)
+	{
+		printf("minishell: %s: %s\n", argv[0], "Must be run without arguments");
+		return (1);
+	}
 	set_signal_handlers();
 	shell = init_shell(envp);
-	print_envp(shell.env);
 	shell_loop(&shell);
 	free_envp(shell.env);
 	return (0);
