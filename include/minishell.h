@@ -6,7 +6,7 @@
 /*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:51:22 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/08/19 14:15:04 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/08/19 14:32:55 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char							*lookup_var_value(const char *var_name,
 void							append_char_to_str(char **str, char c);
 
 /*--- expand_handlers.c ---*/
-void							handle_quotes(char c, t_exp_state *state, int *i);
+int								handle_quotes(char c, t_exp_state *state, int *i);
 void							handle_dollar(char **new_word, const char *word,
 									int *i, t_minishell *sh);
 void							handle_escape(char **new_word, const char *word,

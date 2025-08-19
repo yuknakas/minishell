@@ -6,7 +6,7 @@
 /*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:05:36 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/19 14:20:27 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/08/19 14:33:25 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,21 @@
 /*
 ** Toggles the quote state based on the character encountered.
 */
-void	handle_quotes(char c, t_exp_state *state, int *i)
+int	handle_quotes(char c, t_exp_state *state, int *i)
 {
 	if (c == '\'' && !state->in_dquote)
 	{
 		state->in_squote = !state->in_squote;
 		(*i)++;
+		return (0);
 	}
 	else if (c == '"' && !state->in_squote)
 	{
 		state->in_dquote = !state->in_dquote;
 		(*i)++;
+		return (0);
 	}
+	return (1);
 }
 
 /*
