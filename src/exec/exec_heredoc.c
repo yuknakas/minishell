@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:06:41 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/16 18:06:42 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/08/19 13:40:05 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,35 @@ static void	heredoc_readline_loop(int fd, t_redir *redir, t_minishell *sh)
 	}
 }
 
-int	handle_heredoc(t_redir *redir, t_minishell *sh)
+static char	*heredoc_name(t_cmd *cmd)
+{
+	char	*cmd_nb;
+	char	*name;
+	char	*nb_xx;
+
+	cmd_nb = ft_itoa(cmd->cmd_no);
+	nb_xx = ft_strjoin(cmd_nb, "_XXXXXX");
+	name = ft_strjoin("/tmp/minishell_heredoc_", nb_xx);
+	free(cmd_nb);
+	free(nb_xx);
+	return (name);
+}
+
+int	handle_heredoc(t_cmd *cmd, t_redir *redir, t_minishell *sh)
 {
 	int		fd;
 	char	*tmp_file;
 
-	tmp_file = ft_strdup("/tmp/minishell_heredoc_XXXXXX");
+	tmp_file = ft_strdup(heredoc_name(cmd));
 	if (tmp_file == NULL)
 		return (-1);
 	fd = mkstemp(tmp_file);
 	if (fd == -1)
-		return (free(tmp_file), -1);
+		return (free(tmp_file), -2);
 	heredoc_readline_loop(fd, redir, sh);
 	close(fd);
 	fd = open(tmp_file, O_RDONLY);
-	unlink(tmp_file);
-	free(tmp_file);
+	free(redir->file);
+	redir->file = tmp_file;
 	return (fd);
 }

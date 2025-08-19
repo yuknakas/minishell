@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 15:59:32 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/16 18:02:29 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/08/19 13:08:06 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_cmd
 	char					**argv;
 	t_redir					*rd;
 	int						builtin;
+	int						cmd_no;
 	t_cmd					*next;
 }							t_cmd;
 

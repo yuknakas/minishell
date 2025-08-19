@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:06:12 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/16 18:06:14 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/08/19 13:39:58 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@ int	open_redir_file(t_redir *redir, t_minishell *sh)
 {
 	int	fd;
 
-	if (redir->kind == REDIR_IN)
+	sh = NULL;
+	if (redir->kind == REDIR_IN || redir->kind == REDIR_HEREDOC)
 		fd = open(redir->file, O_RDONLY);
 	else if (redir->kind == REDIR_OUT)
 		fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (redir->kind == REDIR_APPEND)
 		fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	else if (redir->kind == REDIR_HEREDOC)
-		fd = handle_heredoc(redir, sh);
 	else
 		fd = -1;
 	return (fd);

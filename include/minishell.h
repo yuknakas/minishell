@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:51:22 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/08/16 18:34:29 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/08/19 13:12:11 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,8 @@ int								open_redir_file(t_redir *redir,
 									t_minishell *sh);
 
 /*--- execute_heredoc.c ---*/
-int								handle_heredoc(t_redir *redir, t_minishell *sh);
+int								handle_heredoc(t_cmd *cmd, t_redir *redir, t_minishell *sh);
+// int								handle_heredoc(t_redir *redir, t_minishell *sh);
 
 /*--- tokenizer.c ---*/
 t_token							*make_token_list(char *line);

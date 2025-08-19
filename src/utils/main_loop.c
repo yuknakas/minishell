@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:03:42 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/16 18:03:43 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/08/19 13:40:43 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static int	do_heredoc(t_cmd *cmds, t_minishell *sh)
+{
+	t_redir	*rd;
+	int		result;
+
+	result = -100;
+	while (cmds != NULL)
+	{
+		rd = cmds->rd;
+		while (rd != NULL)
+		{
+			if (rd->kind == REDIR_HEREDOC)
+				result = handle_heredoc(cmds, rd, sh);
+			rd = rd->next;
+		}
+		cmds = cmds->next;
+	}
+	return (1);
+}
 
 static void	process_line_part(char *part, t_minishell *sh)
 {
@@ -26,6 +46,7 @@ static void	process_line_part(char *part, t_minishell *sh)
 		free_token_list(sh->tokens);
 		return ;
 	}
+	do_heredoc(sh->cmds, sh);
 	sh->last_status = execute_pipeline(sh->cmds, sh);
 	free_token_list(sh->tokens);
 	free_cmd_list(sh->cmds);

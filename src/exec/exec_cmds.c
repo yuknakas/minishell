@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:06:47 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/16 18:13:30 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/08/19 13:40:09 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,6 @@ static int	exec_cmd_with_redir(t_cmd *cmd, t_minishell *sh)
 	saved_stdout = dup(STDOUT_FILENO);
 	if (saved_stdin == -1 || saved_stdout == -1)
 		return (pex_perror("dup"), 1);
-	if (handle_redirections(cmd, sh) != 0)
-	{
-		dup2(saved_stdin, STDIN_FILENO);
-		dup2(saved_stdout, STDOUT_FILENO);
-		close(saved_stdin);
-		close(saved_stdout);
-		return (1);
-	}
 	result = execute_builtin(cmd, sh);
 	dup2(saved_stdin, STDIN_FILENO);
 	dup2(saved_stdout, STDOUT_FILENO);
@@ -71,6 +63,11 @@ static void	child_exec_external(t_cmd *cmd, t_minishell *sh, char *path)
 		pex_cmd_error(cmd->argv[0]);
 		free(path);
 		_freearr(envp);
+		if (cmd->rd->kind == REDIR_HEREDOC)
+		{
+			unlink(cmd->rd->file);
+			free(cmd->rd->file);
+		}
 		exit(126);
 	}
 }
