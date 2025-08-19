@@ -6,7 +6,7 @@
 /*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:06:41 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/19 13:40:05 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:11:01 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ static void	heredoc_readline_loop(int fd, t_redir *redir, t_minishell *sh)
 	while (1)
 	{
 		line = readline("> ");
+		if (g_sig)
+		{
+			free(line);
+			break ;
+		}
 		if (line == NULL || ft_strcmp(line, redir->file) == 0)
 		{
 			free(line);

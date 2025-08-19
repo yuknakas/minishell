@@ -6,11 +6,12 @@
 /*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:03:42 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/19 15:50:19 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:11:33 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <signal.h>
 
 static int	do_heredoc(t_cmd *cmds, t_minishell *sh)
 {
