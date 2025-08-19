@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cmd_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:04:52 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/16 18:16:45 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/08/19 16:11:45 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	add_arg(t_cmd *cmd, char *arg)
 	int		argc;
 	char	**new_argv;
 
+	if (arg == NULL || arg[0] == '\0')
+		return (0);
 	argc = count_args(cmd->argv);
 	new_argv = (char **)malloc(sizeof(char *) * (argc + 2));
 	if (new_argv == NULL)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: razakosmonaliev <razakosmonaliev@studen    +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:49:04 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/08/16 15:47:43 by razakosmona      ###   ########.fr       */
+/*   Updated: 2025/08/19 16:51:07 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ char	*get_cmd_path(char *command, t_minishell *sh)
 		return (NULL);
 	if (ft_strchr(command, '/'))
 	{
-		if (access(command, F_OK | X_OK) == 0)
+		if (access(command, F_OK) == 0)
 			return (ft_strdup(command));
 		return (NULL);
 	}

@@ -6,7 +6,7 @@
 /*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:03:42 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/19 15:00:20 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/08/19 15:50:19 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	process_line_part(char *part, t_minishell *sh)
 	sh->tokens = make_token_list(part);
 	if (!sh->tokens)
 	{
-		sh->last_status = 258;
+		sh->last_status = 0;
 		return ;
 	}
 	sh->cmds = parse(sh->tokens, sh);

@@ -6,7 +6,7 @@
 /*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:51:22 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/08/19 14:32:55 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/08/19 16:57:34 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 // structs
 # include "structs.h"
+# include <sys/types.h>
+# include <sys/stat.h>
 
 // Libft
 # include "../libft/header/libft.h"

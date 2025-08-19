@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   absolute_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:51:45 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/08/04 13:57:53 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/08/19 16:19:51 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ static int	absolute_path(char *cmd, t_minishell *sh)
 		return (127);
 	}
 	sucess = execve(cmd_arr[0], cmd_arr, envp);
+	if (errno == EISDIR)
+		pex_print(cmd, "is a directory\n");
+	else if (errno == ENOENT)
+		pex_print(cmd, "command not found\n");
+	else
+		perror(cmd);
 	_freearr(cmd_arr);
 	return (sucess);
 }

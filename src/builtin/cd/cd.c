@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: razakosmonaliev <razakosmonaliev@studen    +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 11:40:00 by razakosmona       #+#    #+#             */
-/*   Updated: 2025/08/16 12:51:23 by razakosmona      ###   ########.fr       */
+/*   Updated: 2025/08/19 16:59:09 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ int	builtin_cd(char **args, t_minishell *sh)
 	const char	*path;
 	char		*old_pwd;
 
+	if (args[2] != NULL)
+	{
+		pex_print("cd", "too many arguments");
+		return (1);
+	}
 	old_pwd = NULL;
 	if (resolve_cd_path(args, sh, &path, &old_pwd))
 		return (1);

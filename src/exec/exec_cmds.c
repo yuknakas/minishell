@@ -6,7 +6,7 @@
 /*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:06:47 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/19 14:55:45 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/08/19 16:56:57 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,27 +49,47 @@ int	execute_single_command(t_cmd *cmd, t_minishell *sh)
 	return (execute_external_command(cmd, sh));
 }
 
+static void	clean_child(char *path, char **envp, t_cmd *cmd)
+{
+	t_redir	*rd;
+
+	free(path);
+	_freearr(envp);
+	rd = cmd->rd;
+	while (rd != NULL)
+	{
+		if (rd->kind == REDIR_HEREDOC)
+		{
+			unlink(rd->file);
+			free(rd->file);
+		}
+		rd = rd->next;
+	}
+	
+}
+
 static void	child_exec_external(t_cmd *cmd, t_minishell *sh, char *path)
 {
-	char	**envp;
+	char		**envp;
+	struct stat	st;
 
 	envp = env_list_to(sh->env);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (handle_redirections(cmd, sh) != 0)
 		exit(1);
-	if (execve(path, cmd->argv, envp) == -1)
+	execve(path, cmd->argv, envp);
+	if (stat(path, &st) == 0 && S_ISDIR(st.st_mode))
 	{
-		pex_cmd_error(cmd->argv[0]);
-		free(path);
-		_freearr(envp);
-		if (cmd->rd->kind == REDIR_HEREDOC)
-		{
-			unlink(cmd->rd->file);
-			free(cmd->rd->file);
-		}
+		pex_print(cmd->argv[0], "is a directory");
+		clean_child(path, envp, cmd);
 		exit(126);
 	}
+	perror(cmd->argv[0]);
+	clean_child(path, envp, cmd);
+	if (errno == ENOENT)
+		exit(127);
+	exit(126);
 }
 
 int	execute_external_command(t_cmd *cmd, t_minishell *sh)
@@ -78,6 +98,8 @@ int	execute_external_command(t_cmd *cmd, t_minishell *sh)
 	pid_t	pid;
 	int		status;
 
+	if (cmd->argv[0][0] == '\0')
+		return (0);
 	path = get_cmd_path(cmd->argv[0], sh);
 	if (path == NULL)
 		return (pex_cmd_error(cmd->argv[0]), 127);
