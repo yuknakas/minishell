@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_handlers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:05:36 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/16 18:05:37 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/08/19 14:20:27 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,18 @@
 /*
 ** Toggles the quote state based on the character encountered.
 */
-void	handle_quotes(char c, t_exp_state *state)
+void	handle_quotes(char c, t_exp_state *state, int *i)
 {
 	if (c == '\'' && !state->in_dquote)
+	{
 		state->in_squote = !state->in_squote;
+		(*i)++;
+	}
 	else if (c == '"' && !state->in_squote)
+	{
 		state->in_dquote = !state->in_dquote;
+		(*i)++;
+	}
 }
 
 /*

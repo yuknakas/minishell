@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:05:23 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/16 18:05:24 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/08/19 14:22:08 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void	process_character(char **new, const char *word, int *i,
 	{
 		if (word[*i] == '\'' || word[*i] == '"')
 		{
-			handle_quotes(word[*i], &state);
+			handle_quotes(word[*i], &state, i);
+			append_char_to_str(new, word[*i]);
 			(*i)++;
 		}
 		else if (word[*i] == '$' && !state.in_squote)
