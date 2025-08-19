@@ -6,7 +6,7 @@
 /*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:06:12 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/19 13:39:58 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/08/19 14:53:44 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	open_redir_file(t_redir *redir, t_minishell *sh)
 {
 	int	fd;
-
+	
 	sh = NULL;
 	if (redir->kind == REDIR_IN || redir->kind == REDIR_HEREDOC)
 		fd = open(redir->file, O_RDONLY);
