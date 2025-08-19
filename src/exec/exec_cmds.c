@@ -6,7 +6,7 @@
 /*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:06:47 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/19 16:56:57 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:11:56 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static void	clean_child(char *path, char **envp, t_cmd *cmd)
 		}
 		rd = rd->next;
 	}
-	
 }
 
 static void	child_exec_external(t_cmd *cmd, t_minishell *sh, char *path)
