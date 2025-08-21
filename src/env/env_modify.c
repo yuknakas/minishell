@@ -3,50 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_modify.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: razakosmonaliev <razakosmonaliev@studen    +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 15:25:00 by razakosmona       #+#    #+#             */
-/*   Updated: 2025/08/16 15:39:26 by razakosmona      ###   ########.fr       */
+/*   Updated: 2025/08/21 15:31:37 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-// int	add_or_update_env(t_envp **head, const char *key, const char *value)
-// {
-// 	t_envp	*node;
-// 	t_envp	*cur;
-
-// 	node = find_env_node(*head, key);
-// 	if (node != NULL)
-// 	{
-// 		free(node->value);
-// 		if (value)
-// 			node->value = ft_strdup(value);
-// 		else
-// 			node->value = NULL;
-// 		return (0);
-// 	}
-// 	node = (t_envp *)malloc(sizeof(t_envp));
-// 	if (node == NULL)
-// 		return (1);
-// 	node->key = ft_strdup(key);
-// 	if (value)
-// 		node->value = ft_strdup(value);
-// 	else
-// 		node->value = NULL;
-// 	node->next = NULL;
-// 	if (*head == NULL)
-// 		*head = node;
-// 	else
-// 	{
-// 		cur = *head;
-// 		while (cur->next != NULL)
-// 			cur = cur->next;
-// 		cur->next = node;
-// 	}
-// 	return (0);
-// }
 
 static int	update_existing_env(t_envp *node, const char *value)
 {

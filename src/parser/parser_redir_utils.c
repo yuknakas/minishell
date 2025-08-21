@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_redir_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:13:59 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/16 18:21:26 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/08/21 15:30:56 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,6 @@ static void	append_redir_to_cmd(t_cmd *cmd, t_redir *redir)
 	}
 }
 
-/*
-** Creates a new redirection struct and appends it to the command.
-*/
 int	add_redir(t_cmd *cmd, t_token *token, t_minishell *sh)
 {
 	t_redir	*redir;

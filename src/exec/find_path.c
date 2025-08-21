@@ -6,60 +6,11 @@
 /*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 09:49:04 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/08/19 16:51:07 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/08/21 15:32:00 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-// static char	*get_cmd_path_from_pathvar(const char *command,
-// 		const char *env_path)
-// {
-// 	char	**path_comp;
-// 	char	*new_path;
-// 	char	*path;
-// 	int		i;
-
-// 	if (env_path == NULL)
-// 		return (NULL);
-// 	path_comp = ft_split(env_path, ':');
-// 	if (path_comp == NULL)
-// 		return (NULL);
-// 	i = 0;
-// 	while (path_comp[i] != NULL)
-// 	{
-// 		new_path = ft_strjoin(path_comp[i], "/");
-// 		path = ft_strjoin(new_path, command);
-// 		free(new_path);
-// 		if (access(path, F_OK | X_OK) == 0)
-// 		{
-// 			_freearr(path_comp);
-// 			return (path);
-// 		}
-// 		free(path);
-// 		i++;
-// 	}
-// 	_freearr(path_comp);
-// 	return (NULL);
-// }
-
-// char	*get_cmd_path(char *command, t_minishell *sh)
-// {
-// 	char	*env_path;
-// 	t_envp	*node;
-
-// 	if (command == NULL || command[0] == '\0')
-// 		return (NULL);
-// 	if (ft_strchr(command, '/'))
-// 	{
-// 		if (access(command, F_OK | X_OK) == 0)
-// 			return (ft_strdup(command));
-// 		return (NULL);
-// 	}
-// 	node = find_env_node(sh->env, "PATH");
-// 	env_path = (node && node->value) ? node->value : NULL;
-// 	return (get_cmd_path_from_pathvar(command, env_path));
-// }
 
 static char	*build_and_check_path(const char *dir, const char *command)
 {
