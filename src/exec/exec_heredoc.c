@@ -6,7 +6,7 @@
 /*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:06:41 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/21 14:34:44 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/08/21 14:36:14 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ static void	heredoc_read_loop(int fd, t_redir *redir, t_minishell *sh)
 	}
 }
 
-static int	_continue_handle(char *tmp_file, pid_t pid, t_redir *redir, t_minishell *sh)
+static int	_cont_handle(char *tmp_f, pid_t pid, t_redir *rd, t_minishell *sh)
 {
 	int	fd;
 	int	status;
@@ -148,17 +148,17 @@ static int	_continue_handle(char *tmp_file, pid_t pid, t_redir *redir, t_minishe
 	if ((WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 		|| (WIFEXITED(status) && WEXITSTATUS(status) == 130))
 	{
-		unlink(tmp_file);
-		free(tmp_file);
-		free(redir->file);
-		redir->file = NULL;
+		unlink(tmp_f);
+		free(tmp_f);
+		free(rd->file);
+		rd->file = NULL;
 		write(STDOUT_FILENO, "\n", 1);
 		sh->last_status = 130;
 		return (-1);
 	}
-	fd = open(tmp_file, O_RDONLY);
-	free(redir->file);
-	redir->file = tmp_file;
+	fd = open(tmp_f, O_RDONLY);
+	free(rd->file);
+	rd->file = tmp_f;
 	return (fd);
 }
 
@@ -186,5 +186,5 @@ int	handle_heredoc(t_cmd *cmd, t_redir *redir, t_minishell *sh)
 		exit(0);
 	}
 	close(fd);
-	return (_continue_handle(tmp_file, pid, redir, sh));
+	return (_cont_handle(tmp_file, pid, redir, sh));
 }
