@@ -6,7 +6,7 @@
 /*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 12:51:22 by yuknakas          #+#    #+#             */
-/*   Updated: 2025/08/19 18:10:48 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/08/21 14:29:04 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ int			open_redir_file(t_redir *redir,
 
 /*--- execute_heredoc.c ---*/
 int			handle_heredoc(t_cmd *cmd, t_redir *redir, t_minishell *sh);
+char		*heredoc_name(t_cmd *cmd);
 
 /*--- tokenizer.c ---*/
 t_token		*make_token_list(char *line);

@@ -6,7 +6,7 @@
 /*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:06:12 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/19 17:12:04 by yuknakas         ###   ########.fr       */
+/*   Updated: 2025/08/21 14:28:52 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,18 @@ int	handle_redirections(t_cmd *cmd, t_minishell *sh)
 		redir = redir->next;
 	}
 	return (0);
+}
+
+char	*heredoc_name(t_cmd *cmd)
+{
+	char	*cmd_nb;
+	char	*name;
+	char	*nb_xx;
+
+	cmd_nb = ft_itoa(cmd->cmd_no);
+	nb_xx = ft_strjoin(cmd_nb, "_XXXXXX");
+	name = ft_strjoin("/tmp/minishell_heredoc_", nb_xx);
+	free(cmd_nb);
+	free(nb_xx);
+	return (name);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:03:42 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/21 14:20:13 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/08/21 14:27:53 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,7 @@ static void	process_line_part(char *part, t_minishell *sh)
 	}
 	sh->cmds = parse(sh->tokens, sh);
 	if (!sh->cmds)
-	{
-		free_token_list(sh->tokens);
-		return ;
-	}
+		return (free_token_list(sh->tokens));
 	if (do_heredoc(sh->cmds, sh) == -1)
 	{
 		free_token_list(sh->tokens);
@@ -156,10 +153,7 @@ void	shell_loop(t_minishell *sh)
 			continue ;
 		i = 0;
 		while (parts[i])
-		{
-			process_line_part(parts[i], sh);
-			i++;
-		}
+			process_line_part(parts[i++], sh);
 		_freearr(parts);
 	}
 }

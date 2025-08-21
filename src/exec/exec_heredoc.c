@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yuknakas <yuknakas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:06:41 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/21 14:10:46 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/08/21 14:34:44 by yuknakas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,19 +137,29 @@ static void	heredoc_read_loop(int fd, t_redir *redir, t_minishell *sh)
 	}
 }
 
-// This function is a placeholder for your existing heredoc_name logic
-static char	*heredoc_name(t_cmd *cmd)
+static int	_continue_handle(char *tmp_file, pid_t pid, t_redir *redir, t_minishell *sh)
 {
-	char	*cmd_nb;
-	char	*name;
-	char	*nb_xx;
+	int	fd;
+	int	status;
 
-	cmd_nb = ft_itoa(cmd->cmd_no);
-	nb_xx = ft_strjoin(cmd_nb, "_XXXXXX");
-	name = ft_strjoin("/tmp/minishell_heredoc_", nb_xx);
-	free(cmd_nb);
-	free(nb_xx);
-	return (name);
+	signal(SIGINT, SIG_IGN);
+	waitpid(pid, &status, 0);
+	set_signal_handlers();
+	if ((WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		|| (WIFEXITED(status) && WEXITSTATUS(status) == 130))
+	{
+		unlink(tmp_file);
+		free(tmp_file);
+		free(redir->file);
+		redir->file = NULL;
+		write(STDOUT_FILENO, "\n", 1);
+		sh->last_status = 130;
+		return (-1);
+	}
+	fd = open(tmp_file, O_RDONLY);
+	free(redir->file);
+	redir->file = tmp_file;
+	return (fd);
 }
 
 int	handle_heredoc(t_cmd *cmd, t_redir *redir, t_minishell *sh)
@@ -157,7 +167,6 @@ int	handle_heredoc(t_cmd *cmd, t_redir *redir, t_minishell *sh)
 	int		fd;
 	char	*tmp_file;
 	pid_t	pid;
-	int		status;
 
 	tmp_file = heredoc_name(cmd);
 	if (!tmp_file)
@@ -177,22 +186,5 @@ int	handle_heredoc(t_cmd *cmd, t_redir *redir, t_minishell *sh)
 		exit(0);
 	}
 	close(fd);
-	signal(SIGINT, SIG_IGN);
-	waitpid(pid, &status, 0);
-	set_signal_handlers();
-	if ((WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-		|| (WIFEXITED(status) && WEXITSTATUS(status) == 130))
-	{
-		unlink(tmp_file);
-		free(tmp_file);
-		free(redir->file);
-		redir->file = NULL;
-		write(STDOUT_FILENO, "\n", 1);
-		sh->last_status = 130;
-		return (-1);
-	}
-	fd = open(tmp_file, O_RDONLY);
-	free(redir->file);
-	redir->file = tmp_file;
-	return (fd);
+	return (_continue_handle(tmp_file, pid, redir, sh));
 }
