@@ -6,7 +6,7 @@
 /*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:03:42 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/21 13:28:35 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/08/21 14:20:13 by raosmona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ static int	do_heredoc(t_cmd *cmds, t_minishell *sh)
 		{
 			if (rd->kind == REDIR_HEREDOC)
 			{
-				if (handle_heredoc(cmds, rd, sh) == -1)
+				result = handle_heredoc(cmds, rd, sh);
+				if (result == -1)
 					return (-1);
 			}
 			rd = rd->next;
@@ -122,7 +123,12 @@ static void	process_line_part(char *part, t_minishell *sh)
 		free_cmd_list(sh->cmds);
 		return ;
 	}
-	sh->last_status = execute_pipeline(sh->cmds, sh);
+	if (sh->cmds)
+	{
+		signal(SIGINT, SIG_IGN);
+		sh->last_status = execute_pipeline(sh->cmds, sh);
+		set_signal_handlers();
+	}
 	free_token_list(sh->tokens);
 	free_cmd_list(sh->cmds);
 }
@@ -136,6 +142,11 @@ void	shell_loop(t_minishell *sh)
 	while (1)
 	{
 		line = readline("minishell$ ");
+		if (g_sig == SIGINT)
+		{
+			sh->last_status = 130;
+			g_sig = 0;
+		}
 		if (!line)
 			break ;
 		add_history(line);

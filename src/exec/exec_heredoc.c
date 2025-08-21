@@ -6,7 +6,7 @@
 /*   By: raosmona <raosmona@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 18:06:41 by raosmona          #+#    #+#             */
-/*   Updated: 2025/08/21 13:28:49 by raosmona         ###   ########.fr       */
+/*   Updated: 2025/08/21 14:10:46 by raosmona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,11 +126,11 @@ static void	heredoc_read_loop(int fd, t_redir *redir, t_minishell *sh)
 	{
 		line = readline("> ");
 		if (line == NULL)
-			break ;
-		if (line == NULL || ft_strcmp(line, redir->file) == 0)
+			exit(0);
+		if (ft_strcmp(line, redir->file) == 0)
 		{
 			free(line);
-			break ;
+			exit(0);
 		}
 		write_heredoc_line(line, fd, redir, sh);
 		free(line);
@@ -180,16 +180,14 @@ int	handle_heredoc(t_cmd *cmd, t_redir *redir, t_minishell *sh)
 	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
 	set_signal_handlers();
-	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+	if ((WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		|| (WIFEXITED(status) && WEXITSTATUS(status) == 130))
 	{
 		unlink(tmp_file);
 		free(tmp_file);
 		free(redir->file);
 		redir->file = NULL;
 		write(STDOUT_FILENO, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
 		sh->last_status = 130;
 		return (-1);
 	}
